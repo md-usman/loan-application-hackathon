@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hackathon 2021</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+<script>
+
+var stateObject = { 
+    "Bentley": [
+      "Arnage",
+      "Azure",
+      "Brooklands",
+      "Continental",
+      "Corniche",
+      "Eight",
+      "Mulsanne",
+      "Turbo R"
+    ],
+    "BMW": [
+      "128i",
+      "135i",
+      "135is",
+      "318i",
+      "318iC",
+      "318iS",
+      "318ti",
+      "320i",
+      "323ci",
+      "323i",
+      "323is",
+      "323iT",
+      "325Ci",
+      "325e",
+      "325es",
+      "325i",
+      "325is",
+      "325iX",
+      "325xi",
+      "328Ci",
+      "328i",
+      "328iS",
+      "328xi",
+      "330Ci",
+      "330i",
+      "330xi",
+      "335d",
+      "335i"
+    ],
+    "AMC": [
+      "Alliance",
+      "Concord",
+      "Eagle",
+      "Encore",
+      "Spirit"
+    ], 
+    "Aston Martin": [
+      "DB7",
+      "DB9",
+      "DBS",
+      "Lagonda",
+      "Rapide",
+      "V12 Vantage",
+      "V8 Vantage",
+      "Vanquish",
+      "Virage"
+    ],
+    "Chevrolet": [
+      "Astro",
+      "Avalanche",
+      "Aveo",
+      "Aveo5",
+      "Beretta",
+      "Blazer",
+      "Camaro",
+      "Caprice",
+      "Captiva Sport",
+      "Cavalier",
+      "Celebrity",
+      "Chevette",
+      "Citation",
+      "Cobalt",
+      "Colorado",
+      "Corsica"],
+      "FIAT": [
+      "2000 Spider",
+      "500",
+      "Bertone X1/9",
+      "Brava",
+      "Pininfarina Spider",
+      "Strada",
+      "X1/9"
+    ],
+    "Ford": [
+      "Aerostar",
+      "Aspire",
+      "Bronco",
+      "Bronco II",
+      "C-MAX",
+      "Club Wagon",
+      "Contour",
+      "Courier",
+      "Crown Victoria",
+      "E-150 and Econoline 150",
+      "E-250 and Econoline 250",
+      "E-350 and Econoline 350",
+      "Edge",
+      "Escape",
+      "Escort",
+      "Excursion",
+      "EXP",
+      "Expedition",
+      "Expedition EL",
+      "Explorer",
+      "Explorer Sport Trac",
+      "F100",
+      "F150",
+      "F250",
+      "F350",
+      "F450",
+      "Fairmont",
+      "Festiva",
+      "Fiesta",
+      "Five Hundred",
+      "Flex",
+      "Focus",
+      "Freestar"
+]
+
+};
+
+    window.onload = function () {
+            var stateSel = document.getElementById("stateSel"),
+                districtSel = document.getElementById("districtSel");
+            for (var state in stateObject) {
+                stateSel.options[stateSel.options.length] = new Option(state, state);
+            }
+            stateSel.onchange = function () {
+                districtSel.length = 1; // remove all options bar first
+                if (this.selectedIndex < 1) return; // done
+                var district = stateObject[stateSel.value];
+                for (var i = 0; i < district.length; i++) {
+                    districtSel.options[districtSel.options.length] = new Option(district[i], district[i]);
+                }
+            }
+        }
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="#">HACKATHON 2021</a>
+        <h5 style="color: white;"><% if (userName !== "") { %>
+            Welcome <%- userName %>
+            <% } %> </h5>
+    </nav>
+
+    <div class="body">
+        <h1 style="text-align: center;">Your Loan Goals</h1>
+        <p style="text-align: center;">Tell us about the property you're looking for</p>
+        <br />
+        <form action="/car-loan" name="myForm" onsubmit="return validateForm()" method="POST">
+            <div class="form-group">
+                <label for="">Which brand Car are you looking for?</label>
+                <select name="carBrand" id="stateSel" class="form-control" size="1">
+                    <option value="" selected="selected">Select an option</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Which model car are you looking for?</label>
+                <select name="carModel" class="form-control" id="districtSel" size="1">
+                    <option value="" selected="selected">
+                        select an option
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Purchase Price</label>
+                <input type="number" class="form-control" name="purPrice" placeholder="Purchase Price" />
+            </div>
+            <div class="form-group">
+                <label for="">Down Payment in Percentage</label>
+                <input type="number" class="form-control" name="downPayment" placeholder="Down payment in percentage" />
+            </div>
+            <div class="form-group">
+                <label for="">Desired Loan Amount</label>
+                <input type="number" class="form-control" name="loanAmount" placeholder="Desired Loan Amount" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="form-control btn btn-info" value="Continue" />
+            </div>
+        </form>
+    </div>
+
+</body>
+
+
+<script>
+    function validateForm() {
+ 
+       var purPrice = document.forms["myForm"]["purPrice"].value;
+       if(purPrice < 1) {
+          alert("enter valid purchase amount")
+          return false;
+       }
+ 
+       var doPayment = document.forms["myForm"]["downPayment"].value;
+       if(doPayment < 1) {
+          alert("enter valid down payment");
+          return false;
+       }
+       var loan = document.forms["myForm"]["loanAmount"].value;
+       if(loan < 1) {
+          alert("enter valid loan amount");
+          return false;
+       }
+       return true;
+ 
+    }
+ </script>

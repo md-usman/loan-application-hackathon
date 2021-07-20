@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hackathon 2021</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="#">HACKATHON 2021</a>
+        <h5 style="color: white;"><% if (userName !== "") { %>
+            Welcome <%- userName %>
+            <% } %> </h5>
+    </nav>
+    <div class="body">
+        <h1>Review About You</h1>
+
+        <a href="/edit" class="btn btn-outline-warning" style="float: right; margin-bottom: 20px;">EDIT</a><br>
+
+        <table class="table table-small">
+            <thead>
+                <tr scope="col"><h4>Borrower</h4></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Borrower's Name</td>
+                    <td>: Mr.<%- user.fname %> <%- user.lname %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">Email</td>
+                    <td>: <%- user.email %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">Phone No</td>
+                    <td>: <%- user.phoneNo %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">Birth Date</td>
+                    <td>: <%- user.birthDate %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">Marital Status</td>
+                    <td>: <%- user.maritalStatus %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">Address</td>
+                    <td>: <%- user.address %> </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table class="table table-small">
+            <thead>
+                <tr><h4>Borrower's Dependents</h4></tr>
+            </thead>
+            <tbody>
+                <% for(var i = 0; i < user.numberDependents; i++) { %>
+                    <tr>
+                        <td>Dependent <%- i %></td>
+                        <td>: <%- user.numberDependentsAge[0][i] %> </td>
+                    </tr>
+                <% } %> 
+                
+            </tbody>
+        </table>
+        <br>
+        <table class="table table-small">
+            <thead>
+                <tr><h4>Co-Borrower Details</h4></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Name</td>
+                    <td>: <%- user.coName %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">coAge</td>
+                    <td>: <%- user.coAge %> </td>
+                </tr>
+                <tr>
+                    <td scope="row">Annual Income</td>
+                    <td>: <%- user.coIncome %> </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/your-goals" class="btn btn-info form-control" style="margin-bottom: 5em;">Finish Section</a>
+    </div>
+</body>
+
+

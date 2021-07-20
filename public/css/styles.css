@@ -1,0 +1,36 @@
+.body {
+    background-color: white;
+    height: 200vh;  
+    margin: auto;
+    width: 60%;
+    padding: 4em;
+}
+
+body {
+    background-color: aliceblue;
+}
+
+.home-image {
+    width: 200px;
+}
+
+label {
+    margin-top: 20px;
+}
+
+.btn {
+    margin-top: 30px;
+    
+}
+
+.img-type {
+    max-width: 100%;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .body {
+      width: 90%;
+    }
+  }
+

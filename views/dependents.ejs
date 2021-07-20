@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hackathon 2021</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="#">HACKATHON 2021</a>
+        <h5 style="color: white;"><% if (userName !== "") { %>
+            Welcome <%- userName %>
+        <% } %> </h5>
+    </nav>
+    <div class="body">
+        <h1 style="text-align: center;">Dependents</h1>
+        <hr>
+        <p style="text-align: center;">Do you have any Dependents ? </p>
+        <div style="text-align: center; margin-bottom: 1em; margin-top: 0;">
+        <input type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-size="xs" data-onstyle="info" data-offstyle="danger" onchange="validateCheckbox(this)">
+    </div>
+        <div id="dependent">
+            <p style="text-align: center;">Number of dependents</p>
+            <form style="text-align: center;" action="/dependents" name="yourForm" onsubmit="return validateForm1()" method="POST">
+            
+                <input type="hidden" name="numDeps" value="numDeps">
+            <input id="numDep" value="<%- number %> " type="number" name="numDependents" class="disabled" value = 1 style="text-align: center;"/>
+                <input type="submit" style="margin-top: 0;" class="btn btn-info" value="go" name="" id="">
+            </form>
+
+            <form action="/dependents" method="POST">
+                <input type="hidden" name="numDeps" value="submit">
+                <input type="hidden" name="number" value="<%- number %>">
+                <% for(let i = 0; i < number; i++) { %>
+                    <div class="from-group">
+                        <label for="">Dependent <%- i + 1 %> age </label>
+                        <input type="number" class="form-control" name="ages" placeholder="Enter Age">
+                    </div>
+                    
+                <% } %> 
+                <div class="from-group">
+                    <input type="submit" class="form-control btn btn-info" value="continue">
+                </div>
+            </form>
+        </div>
+ 
+        <div id="noDeps" style="display: none;">
+            <form action="/dependents" method="POST">
+                <div class="form-group">
+                    <input type="hidden" name="numDeps" value="zero">
+                    <input type="submit" class="form-control btn btn-info" value="continue">
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</body>
+
+<script>
+
+    var numberDependents = 0;
+
+    var numDep = document.getElementById("numDep");
+
+    function decrement() {
+        if (numberDependents > 1) {
+            numberDependents = numberDependents - 1;
+        }
+        document.getElementById("numDep").value = numberDependents;
+        
+    }
+
+    function increment () {
+        numberDependents = numberDependents + 1;
+        document.getElementById("numDep").value = numberDependents;
+
+    }
+
+    function validateForm1() {
+        var age = document.forms["yourForm"]["numDependents"].value;
+        if(age <= 0) {
+            alert("enter valid number of dependents");
+            return false;
+        }
+        return true;
+    }
+
+
+    function validateCheckbox(checkbox) {
+        var div = document.getElementById("dependent");
+        var noDeps = document.getElementById("noDeps");
+        if(checkbox.checked) {
+            div.style.display = "block";
+            noDeps.style.display = "none";
+        } else {
+            div.style.display = "none";
+            noDeps.style.display = "block";
+        }
+    }
+</script>
